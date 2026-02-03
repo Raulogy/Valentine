@@ -1,59 +1,72 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Valentine 💘</title>
-<style>
-body {
-  background: #ffe6f0;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-family: Arial, sans-serif;
-}
-.box {
-  background: white;
-  padding: 30px;
-  border-radius: 20px;
-  text-align: center;
-  position: relative;
-}
-button {
-  padding: 12px 20px;
-  font-size: 18px;
-  border-radius: 10px;
-  border: none;
-  margin: 10px;
-}
-#yes {
-  background: #ff4d88;
-  color: white;
-}
-#no {
-  position: absolute;
-}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Valentine 💖</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(135deg, #ff9acb, #ffd1e8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: Arial, sans-serif;
+    }
+    .card {
+      background: white;
+      padding: 25px;
+      border-radius: 20px;
+      width: 280px;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    }
+    img {
+      width: 200px;
+      border-radius: 15px;
+      margin: 15px 0;
+    }
+    button {
+      border: none;
+      padding: 12px 20px;
+      margin: 8px;
+      border-radius: 25px;
+      font-size: 15px;
+      cursor: pointer;
+    }
+    .yes {
+      background: #ff5fa2;
+      color: white;
+    }
+    .no {
+      background: #e0e0e0;
+    }
+  </style>
 </head>
-
 <body>
-<div class="box">
-  <h1>Sunshine ☀️</h1>
-  <p>Will you be my Valentine? 💘</p>
-  <button id="yes" onclick="yes()">YES 💕</button>
-  <button id="no" onmouseover="move()">NO 😌</button>
+
+<div class="card" id="card">
+  <h3>Nele my cutie baby sunshineee 💖</h3>
+  <p>Will you be my Valentine?</p>
+  <img src="IMG_3035.jpeg" id="mainImg">
+  <br>
+  <button class="yes" onclick="yes()">YES 💕</button>
+  <button class="no" onclick="no()">NO 😳</button>
 </div>
 
 <script>
-function move() {
-  const no = document.getElementById("no");
-  no.style.left = Math.random() * 80 + "vw";
-  no.style.top = Math.random() * 80 + "vh";
-}
-function yes() {
-  document.body.innerHTML =
-    "<h1 style='text-align:center;color:#ff4d88'>YAYYY 💖<br>It’s a date 🥺<br>Feb 14. Movie + call + falling asleep together 🌙</h1>";
-}
+  function no() {
+    document.getElementById("mainImg").src = "IMG_3037.jpeg";
+  }
+
+  function yes() {
+    document.getElementById("card").innerHTML = `
+      <h3>I love you so much speedyy ❤️</h3>
+      <img src="IMG_3038.jpeg">
+    `;
+  }
 </script>
+
 </body>
 </html>
