@@ -3,70 +3,442 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Valentine 💖</title>
+  <title>Valentine 💘</title>
+
   <style>
-    body {
-      margin: 0;
-      height: 100vh;
-      background: linear-gradient(135deg, #ff9acb, #ffd1e8);
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    :root{
+      --pink:#ff4d88;
+      --pink2:#ff6aa2;
+      --card:#ffffff;
+      --text:#333;
+      --muted:#777;
+      --shadow: 0 18px 45px rgba(0,0,0,.18);
+      --radius: 26px;
+    }
+
+    *{ box-sizing:border-box; }
+
+    body{
+      margin:0;
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
       font-family: Arial, sans-serif;
+      color:var(--text);
+      background: linear-gradient(135deg, #ff6fb1 0%, #ff8fc6 35%, #ffc1dc 100%);
+      padding: 28px 12px;
     }
-    .card {
-      background: white;
-      padding: 25px;
-      border-radius: 20px;
-      width: 280px;
-      text-align: center;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+
+    .card{
+      width: 360px;
+      max-width: 92vw;
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 18px 18px 14px;
+      text-align:center;
+      position:relative;
+      overflow:hidden;
     }
-    img {
-      width: 200px;
-      border-radius: 15px;
-      margin: 15px 0;
+
+    .tiny-icon{
+      font-size: 18px;
+      margin-bottom: 6px;
+      opacity:.9;
     }
-    button {
-      border: none;
-      padding: 12px 20px;
-      margin: 8px;
-      border-radius: 25px;
-      font-size: 15px;
-      cursor: pointer;
+
+    h1{
+      margin: 0 0 10px;
+      font-size: 26px;
+      line-height: 1.15;
+      color: var(--pink);
+      font-weight: 800;
+      letter-spacing: .2px;
     }
-    .yes {
-      background: #ff5fa2;
-      color: white;
+
+    .img-wrap{
+      width: 220px;
+      height: 220px;
+      margin: 10px auto 12px;
+      border-radius: 18px;
+      overflow:hidden;
+      background:#f3f3f3;
     }
-    .no {
-      background: #e0e0e0;
+    .img-wrap img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
     }
+
+    .btn-row{
+      display:flex;
+      gap:10px;
+      justify-content:center;
+      align-items:center;
+      margin: 6px 0 2px;
+      position:relative;
+      height: 44px; /* keeps layout stable when NO moves */
+    }
+
+    button{
+      border:0;
+      padding: 10px 16px;
+      border-radius: 999px;
+      font-weight: 700;
+      cursor:pointer;
+      transition: transform .08s ease, filter .15s ease;
+      user-select:none;
+      -webkit-tap-highlight-color: transparent;
+      font-size: 14px;
+      line-height: 1;
+      white-space: nowrap;
+    }
+    button:active{ transform: scale(.97); }
+
+    .yes{
+      background: var(--pink);
+      color:#fff;
+      min-width: 120px;
+      box-shadow: 0 10px 20px rgba(255,77,136,.35);
+    }
+    .yes:hover{ filter: brightness(1.03); }
+
+    .no{
+      background: #d9d9d9;
+      color:#333;
+      min-width: 90px;
+      position:absolute; /* so it can run away inside the row */
+      right: 0;
+      top: 0;
+    }
+
+    .footer{
+      margin-top: 10px;
+      font-size: 12px;
+      color: var(--muted);
+      opacity:.8;
+    }
+
+    /* YES page buttons */
+    .stack{
+      display:flex;
+      flex-direction:column;
+      gap: 10px;
+      margin-top: 8px;
+    }
+    .wide{
+      width: 100%;
+      background: var(--pink);
+      color:#fff;
+      padding: 12px 14px;
+      font-weight: 800;
+      box-shadow: 0 10px 20px rgba(255,77,136,.35);
+    }
+
+    .content{
+      text-align:left;
+      margin-top: 14px;
+      font-size: 14px;
+      line-height: 1.45;
+      color:#222;
+      display:none;
+    }
+    .content.show{ display:block; }
+
+    .content h2{
+      margin: 0 0 8px;
+      font-size: 16px;
+      color:#111;
+    }
+
+    .letter{
+      white-space: pre-wrap;
+      font-weight: 600;
+      color:#2c2c2c;
+    }
+
+    .reasons{
+      margin: 0;
+      padding-left: 18px;
+      font-weight: 700;
+    }
+    .reasons li{ margin: 4px 0; }
+
+    /* KISS ANIMATION */
+    .kiss-layer{
+      pointer-events:none;
+      position:absolute;
+      inset:0;
+      overflow:hidden;
+    }
+    .kiss{
+      position:absolute;
+      font-size: 26px;
+      animation: floatUp 1.4s ease-in forwards;
+      filter: drop-shadow(0 6px 8px rgba(0,0,0,.15));
+    }
+    @keyframes floatUp{
+      0%{ transform: translateY(0) scale(.9); opacity:0; }
+      10%{ opacity:1; }
+      100%{ transform: translateY(-220px) scale(1.15); opacity:0; }
+    }
+
+    /* little "No 😳" bubble vibe like the tiktok one */
+    .bubble{
+      position:absolute;
+      top: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,.35);
+      color:#fff;
+      font-weight: 800;
+      font-size: 12px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      display:none;
+    }
+    .bubble.show{ display:inline-flex; gap:6px; align-items:center; }
+
   </style>
 </head>
+
 <body>
+  <div class="card" id="card">
+    <div class="kiss-layer" id="kissLayer"></div>
 
-<div class="card" id="card">
-  <h3>Nele my cutie baby sunshineee 💖</h3>
-  <p>Will you be my Valentine?</p>
-  <img src="IMG_3035.jpeg" id="mainImg">
-  <br>
-  <button class="yes" onclick="yes()">YES 💕</button>
-  <button class="no" onclick="no()">NO 😳</button>
-</div>
+    <!-- NO bubble -->
+    <div class="bubble" id="noBubble">No 😳</div>
 
-<script>
-  function no() {
-    document.getElementById("mainImg").src = "IMG_3037.jpeg";
-  }
+    <!-- ASK SCREEN -->
+    <div id="screenAsk">
+      <div class="tiny-icon">💌</div>
+      <h1>Nele my cutie baby sunshineee, will you be my Valentine?💖</h1>
 
-  function yes() {
-    document.getElementById("card").innerHTML = `
-      <h3>I love you so much speedyy ❤️</h3>
-      <img src="IMG_3038.jpeg">
-    `;
-  }
-</script>
+      <div class="img-wrap">
+        <img src="IMG_3035.jpeg" alt="cute" />
+      </div>
 
+      <div class="btn-row" id="btnRow">
+        <button class="yes" id="yesBtn">Yes 😍</button>
+        <button class="no" id="noBtn">No 😳</button>
+      </div>
+
+      <div class="footer">raulogy</div>
+    </div>
+
+    <!-- YES SCREEN -->
+    <div id="screenYes" style="display:none;">
+      <h1 style="margin-top:6px;">I love you so much speedyy ❤️</h1>
+
+      <div class="img-wrap">
+        <img src="IMG_3038.jpeg" alt="love" />
+      </div>
+
+      <div class="stack">
+        <button class="wide" id="loveLetterBtn">💌 Love Letter</button>
+        <button class="wide" id="reasonsBtn">💖 50 Reasons Why I Love You</button>
+        <button class="wide" id="kissBtn">😘 Kiss</button>
+      </div>
+
+      <div class="content" id="loveLetter">
+        <h2>My love,</h2>
+        <div class="letter" id="letterText">
+I'm sitting here trying to put into words all these feelings I've got bubbling up.
+Honestly, you’re not just a part of my life — you’re my whole world.
+
+Your smile is my favorite thing.
+Your voice calms me down.
+And the way you exist… it makes everything feel better.
+
+I’m proud of you, I believe in you, and I’m grateful you’re mine.
+Happy Valentine’s, my sunshine 💖
+        </div>
+      </div>
+
+      <div class="content" id="reasons">
+        <h2>50 reasons</h2>
+        <ol class="reasons" id="reasonsList"></ol>
+      </div>
+
+      <div class="footer">raulogy</div>
+    </div>
+  </div>
+
+  <script>
+    const screenAsk = document.getElementById("screenAsk");
+    const screenYes = document.getElementById("screenYes");
+
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn  = document.getElementById("noBtn");
+    const btnRow = document.getElementById("btnRow");
+
+    const noBubble = document.getElementById("noBubble");
+    const kissLayer = document.getElementById("kissLayer");
+
+    const loveLetterBtn = document.getElementById("loveLetterBtn");
+    const reasonsBtn = document.getElementById("reasonsBtn");
+    const kissBtn = document.getElementById("kissBtn");
+
+    const loveLetter = document.getElementById("loveLetter");
+    const reasons = document.getElementById("reasons");
+    const reasonsList = document.getElementById("reasonsList");
+
+    // 50 reasons (edit these however you want)
+    const reasonsData = [
+      "Your smile makes my day",
+      "You understand me",
+      "You make me laugh",
+      "You care about me",
+      "You are beautiful inside and out",
+      "You support me",
+      "You believe in me",
+      "You make me feel safe",
+      "You inspire me",
+      "You are kind",
+      "You are smart",
+      "You are my sunshine",
+      "You’re adorable",
+      "You’re my peace",
+      "You’re my favorite person",
+      "You make everything feel special",
+      "You motivate me to be better",
+      "You’re thoughtful",
+      "You’re gentle",
+      "You’re strong",
+      "You’re cute when you’re shy",
+      "You’re cute when you’re confident",
+      "You’re unique",
+      "You’re the best surprise in my life",
+      "You make me feel loved",
+      "You make me feel chosen",
+      "You make my heart calm",
+      "You make my heart race (in the best way)",
+      "You’re honest with me",
+      "You’re patient with me",
+      "You’re worth everything",
+      "You’re my comfort",
+      "You’re my home",
+      "You’re my favorite notification",
+      "You’re my favorite voice",
+      "You’re my favorite eyes",
+      "You make me proud",
+      "You’re my future",
+      "You’re my dream",
+      "You make love feel real",
+      "You’re respectful",
+      "You’re loyal",
+      "You’re sweet",
+      "You’re precious",
+      "You’re my princess",
+      "You’re my pretty girl",
+      "You’re my beautiful",
+      "You’re my best decision",
+      "You’re my forever",
+      "Because it’s YOU."
+    ];
+
+    function fillReasons(){
+      reasonsList.innerHTML = "";
+      reasonsData.forEach((t) => {
+        const li = document.createElement("li");
+        li.textContent = t;
+        reasonsList.appendChild(li);
+      });
+    }
+    fillReasons();
+
+    // YES -> go to second screen
+    yesBtn.addEventListener("click", () => {
+      screenAsk.style.display = "none";
+      screenYes.style.display = "block";
+      // hide any open sections initially
+      loveLetter.classList.remove("show");
+      reasons.classList.remove("show");
+    });
+
+    // NO -> show gun-cat image briefly + bubble
+    noBtn.addEventListener("click", () => {
+      // quick switch to the "no" vibe
+      const img = screenAsk.querySelector(".img-wrap img");
+      img.src = "IMG_3037.jpeg";
+      noBubble.classList.add("show");
+      setTimeout(() => noBubble.classList.remove("show"), 900);
+      // after a moment, switch back to flowers cat
+      setTimeout(() => { img.src = "IMG_3035.jpeg"; }, 900);
+    });
+
+    // NO button runs away (works on hover + touch)
+    function moveNo(){
+      const rowRect = btnRow.getBoundingClientRect();
+      const btnRect = noBtn.getBoundingClientRect();
+
+      // allowed area inside row
+      const pad = 6;
+      const maxX = rowRect.width - btnRect.width - pad;
+      const maxY = rowRect.height - btnRect.height - pad;
+
+      const x = Math.random() * maxX + pad;
+      const y = Math.random() * maxY + pad;
+
+      noBtn.style.left = x + "px";
+      noBtn.style.top  = y + "px";
+      noBtn.style.right = "auto";
+    }
+
+    noBtn.addEventListener("mouseover", moveNo);
+    noBtn.addEventListener("touchstart", (e) => {
+      e.preventDefault();
+      moveNo();
+    }, {passive:false});
+
+    // Toggle sections like the TikTok one
+    loveLetterBtn.addEventListener("click", () => {
+      loveLetter.classList.toggle("show");
+      reasons.classList.remove("show");
+      // scroll into view nicely
+      if(loveLetter.classList.contains("show")){
+        loveLetter.scrollIntoView({behavior:"smooth", block:"start"});
+      }
+    });
+
+    reasonsBtn.addEventListener("click", () => {
+      reasons.classList.toggle("show");
+      loveLetter.classList.remove("show");
+      if(reasons.classList.contains("show")){
+        reasons.scrollIntoView({behavior:"smooth", block:"start"});
+      }
+    });
+
+    // Kiss animation 💋
+    function spawnKiss(){
+      const kiss = document.createElement("div");
+      kiss.className = "kiss";
+      kiss.textContent = "💋";
+
+      const card = document.getElementById("card");
+      const rect = card.getBoundingClientRect();
+
+      const x = Math.random() * (rect.width - 30);
+      const y = rect.height - 40;
+
+      kiss.style.left = x + "px";
+      kiss.style.top  = y + "px";
+
+      kissLayer.appendChild(kiss);
+      setTimeout(() => kiss.remove(), 1400);
+    }
+
+    kissBtn.addEventListener("click", () => {
+      // burst of kisses
+      let count = 0;
+      const burst = setInterval(() => {
+        spawnKiss();
+        count++;
+        if(count >= 14) clearInterval(burst);
+      }, 60);
+    });
+  </script>
 </body>
 </html>
