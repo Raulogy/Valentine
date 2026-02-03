@@ -2,292 +2,319 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Valentine 💘</title>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Valentine 💖</title>
   <style>
-    :root{
-      --pink:#ff4d88;
-      --pink2:#ff6aa2;
-      --card:#ffffff;
-      --text:#333;
-      --muted:#777;
-      --shadow: 0 18px 45px rgba(0,0,0,.18);
-      --radius: 26px;
-    }
-
-    *{ box-sizing:border-box; }
-
-    body{
-      margin:0;
-      min-height:100vh;
-      display:flex;
-      align-items:center;
-      justify-content:center;
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       font-family: Arial, sans-serif;
-      color:var(--text);
-      background: linear-gradient(135deg, #ff6fb1 0%, #ff8fc6 35%, #ffc1dc 100%);
-      padding: 28px 12px;
+      background: linear-gradient(135deg, #ff5aa5, #ffb6d5);
+      overflow-x: hidden;
     }
 
-    .card{
-      width: 360px;
-      max-width: 92vw;
-      background: var(--card);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 18px 18px 14px;
-      text-align:center;
-      position:relative;
-      overflow:hidden;
-    }
-
-    .tiny-icon{
-      font-size: 18px;
-      margin-bottom: 6px;
-      opacity:.9;
-    }
-
-    h1{
-      margin: 0 0 10px;
-      font-size: 26px;
-      line-height: 1.15;
-      color: var(--pink);
-      font-weight: 800;
-      letter-spacing: .2px;
-    }
-
-    .img-wrap{
-      width: 220px;
-      height: 220px;
-      margin: 10px auto 12px;
+    .card {
+      width: 320px;
+      background: rgba(255,255,255,0.95);
       border-radius: 18px;
-      overflow:hidden;
-      background:#f3f3f3;
-    }
-    .img-wrap img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      display:block;
+      padding: 18px 18px 14px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.18);
+      position: relative;
+      text-align: center;
     }
 
-    .btn-row{
-      display:flex;
-      gap:10px;
-      justify-content:center;
-      align-items:center;
-      margin: 6px 0 2px;
-      position:relative;
-      height: 44px; /* keeps layout stable when NO moves */
+    .tiny-icon {
+      width: 20px;
+      height: 20px;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 6px;
+      margin: 0 auto 6px;
+      opacity: 0.9;
     }
 
-    button{
-      border:0;
+    h1 {
+      margin: 6px 0 12px;
+      font-size: 22px;
+      color: #ff3d8b;
+      line-height: 1.15;
+      font-weight: 800;
+    }
+
+    .img-wrap {
+      width: 170px;
+      height: 210px;
+      border-radius: 16px;
+      overflow: hidden;
+      margin: 0 auto 14px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+      background: #fff;
+    }
+
+    .img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .btn-row {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 8px;
+      position: relative;
+      height: 44px; /* room for runaway button */
+    }
+
+    button {
+      border: none;
+      outline: none;
       padding: 10px 16px;
-      border-radius: 999px;
+      border-radius: 12px;
       font-weight: 700;
-      cursor:pointer;
-      transition: transform .08s ease, filter .15s ease;
-      user-select:none;
-      -webkit-tap-highlight-color: transparent;
+      cursor: pointer;
       font-size: 14px;
-      line-height: 1;
-      white-space: nowrap;
+      transition: transform 0.08s ease;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
     }
-    button:active{ transform: scale(.97); }
 
-    .yes{
-      background: var(--pink);
-      color:#fff;
-      min-width: 120px;
-      box-shadow: 0 10px 20px rgba(255,77,136,.35);
+    button:active { transform: scale(0.98); }
+
+    .yes {
+      background: #ff3d8b;
+      color: white;
+      box-shadow: 0 10px 20px rgba(255,61,139,0.25);
     }
-    .yes:hover{ filter: brightness(1.03); }
 
-    .no{
-      background: #d9d9d9;
-      color:#333;
-      min-width: 90px;
-      position:absolute; /* so it can run away inside the row */
+    .no {
+      background: #eaeaea;
+      color: #333;
+      position: absolute;
       right: 0;
       top: 0;
     }
 
-    .footer{
+    .footer-name {
       margin-top: 10px;
       font-size: 12px;
-      color: var(--muted);
-      opacity:.8;
-    }
-
-    /* YES page buttons */
-    .stack{
-      display:flex;
-      flex-direction:column;
-      gap: 10px;
-      margin-top: 8px;
-    }
-    .wide{
-      width: 100%;
-      background: var(--pink);
-      color:#fff;
-      padding: 12px 14px;
-      font-weight: 800;
-      box-shadow: 0 10px 20px rgba(255,77,136,.35);
-    }
-
-    .content{
-      text-align:left;
-      margin-top: 14px;
-      font-size: 14px;
-      line-height: 1.45;
-      color:#222;
-      display:none;
-    }
-    .content.show{ display:block; }
-
-    .content h2{
-      margin: 0 0 8px;
-      font-size: 16px;
-      color:#111;
-    }
-
-    .letter{
-      white-space: pre-wrap;
-      font-weight: 600;
-      color:#2c2c2c;
-    }
-
-    .reasons{
-      margin: 0;
-      padding-left: 18px;
+      color: rgba(0,0,0,0.45);
       font-weight: 700;
-    }
-    .reasons li{ margin: 4px 0; }
-
-    /* KISS ANIMATION */
-    .kiss-layer{
-      pointer-events:none;
-      position:absolute;
-      inset:0;
-      overflow:hidden;
-    }
-    .kiss{
-      position:absolute;
-      font-size: 26px;
-      animation: floatUp 1.4s ease-in forwards;
-      filter: drop-shadow(0 6px 8px rgba(0,0,0,.15));
-    }
-    @keyframes floatUp{
-      0%{ transform: translateY(0) scale(.9); opacity:0; }
-      10%{ opacity:1; }
-      100%{ transform: translateY(-220px) scale(1.15); opacity:0; }
+      letter-spacing: 0.2px;
     }
 
-    /* little "No 😳" bubble vibe like the tiktok one */
-    .bubble{
-      position:absolute;
-      top: 14px;
+    /* NO bubble */
+    .no-bubble {
+      position: absolute;
+      top: -35px;
       left: 50%;
       transform: translateX(-50%);
-      background: rgba(0,0,0,.35);
-      color:#fff;
+      background: #e9e9e9;
+      color: #333;
+      padding: 6px 10px;
+      border-radius: 12px;
       font-weight: 800;
       font-size: 12px;
-      padding: 6px 10px;
-      border-radius: 999px;
-      display:none;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.15s ease;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.12);
     }
-    .bubble.show{ display:inline-flex; gap:6px; align-items:center; }
+    .no-bubble.show { opacity: 1; }
 
+    /* SECOND SCREEN BUTTONS */
+    .stack {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin: 10px 0 6px;
+    }
+    .stack button {
+      width: 100%;
+      background: #ff63a8;
+      color: white;
+      box-shadow: 0 10px 22px rgba(255,99,168,0.22);
+      font-weight: 800;
+    }
+
+    .section {
+      text-align: left;
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(0,0,0,0.08);
+      font-size: 14px;
+      color: #222;
+      line-height: 1.45;
+    }
+
+    .section h2 {
+      margin: 0 0 8px;
+      font-size: 16px;
+      color: #ff3d8b;
+      font-weight: 900;
+      text-align: center;
+    }
+
+    .reasons {
+      list-style: decimal;
+      padding-left: 20px;
+      margin: 10px 0 0;
+      font-weight: 700;
+      color: #222;
+    }
+
+    /* Kiss animation */
+    .kiss {
+      position: fixed;
+      left: 50%;
+      top: 60%;
+      font-size: 26px;
+      transform: translate(-50%, -50%);
+      animation: floatUp 1.6s ease forwards;
+      pointer-events: none;
+      filter: drop-shadow(0 10px 12px rgba(0,0,0,0.2));
+    }
+
+    @keyframes floatUp {
+      0%   { opacity: 0; transform: translate(-50%, -50%) scale(0.9); }
+      15%  { opacity: 1; }
+      100% { opacity: 0; transform: translate(calc(-50% + var(--x)), calc(-50% - 260px)) scale(1.25); }
+    }
   </style>
 </head>
-
 <body>
-  <div class="card" id="card">
-    <div class="kiss-layer" id="kissLayer"></div>
 
-    <!-- NO bubble -->
-    <div class="bubble" id="noBubble">No 😳</div>
-
-    <!-- ASK SCREEN -->
-    <div id="screenAsk">
+  <div class="card" id="app">
+    <!-- Screen 1 -->
+    <div id="screen-ask">
       <div class="tiny-icon">💌</div>
-      <h1>Nele my cutie baby sunshineee, will you be my Valentine?💖</h1>
+      <h1>Nele my cutie baby sunshineee,<br>will you be my Valentine?💖</h1>
 
       <div class="img-wrap">
-        <img src="IMG_3035.jpeg" alt="cute" />
+        <img id="mainImg" src="IMG_3035.jpeg" alt="cat" />
       </div>
 
       <div class="btn-row" id="btnRow">
+        <div class="no-bubble" id="noBubble">No 🙄</div>
         <button class="yes" id="yesBtn">Yes 😍</button>
-        <button class="no" id="noBtn">No 😳</button>
+        <button class="no" id="noBtn">No 🥺</button>
       </div>
 
-      <div class="footer">raulogy</div>
+      <div class="footer-name">raulogy</div>
     </div>
 
-    <!-- YES SCREEN -->
-    <div id="screenYes" style="display:none;">
+    <!-- Screen 2 -->
+    <div id="screen-yes" style="display:none;">
       <h1 style="margin-top:6px;">I love you so much speedyy ❤️</h1>
 
       <div class="img-wrap">
-        <img src="IMG_3038.jpeg" alt="love" />
+        <img id="yesImg" src="IMG_3038.jpeg" alt="cute" />
       </div>
 
       <div class="stack">
-        <button class="wide" id="loveLetterBtn">💌 Love Letter</button>
-        <button class="wide" id="reasonsBtn">💖 50 Reasons Why I Love You</button>
-        <button class="wide" id="kissBtn">😘 Kiss</button>
+        <button id="loveLetterBtn">💌 Love Letter</button>
+        <button id="reasonsBtn">💖 50 Reasons Why I Love You</button>
+        <button id="kissBtn">😘 Kiss</button>
       </div>
 
-      <div class="content" id="loveLetter">
-        <h2>My love,</h2>
-        <div class="letter" id="letterText">
-I'm sitting here trying to put into words all these feelings I've got bubbling up.
-Honestly, you’re not just a part of my life — you’re my whole world.
+      <div id="content" class="section" style="display:none;"></div>
 
-Your smile is my favorite thing.
-Your voice calms me down.
-And the way you exist… it makes everything feel better.
-
-I’m proud of you, I believe in you, and I’m grateful you’re mine.
-Happy Valentine’s, my sunshine 💖
-        </div>
-      </div>
-
-      <div class="content" id="reasons">
-        <h2>50 reasons</h2>
-        <ol class="reasons" id="reasonsList"></ol>
-      </div>
-
-      <div class="footer">raulogy</div>
+      <div class="footer-name">raulogy</div>
     </div>
   </div>
 
   <script>
-    const screenAsk = document.getElementById("screenAsk");
-    const screenYes = document.getElementById("screenYes");
+    const screenAsk = document.getElementById("screen-ask");
+    const screenYes = document.getElementById("screen-yes");
+
+    const mainImg = document.getElementById("mainImg");
+    const yesImg = document.getElementById("yesImg");
 
     const yesBtn = document.getElementById("yesBtn");
-    const noBtn  = document.getElementById("noBtn");
-    const btnRow = document.getElementById("btnRow");
-
+    const noBtn = document.getElementById("noBtn");
     const noBubble = document.getElementById("noBubble");
-    const kissLayer = document.getElementById("kissLayer");
+    const btnRow = document.getElementById("btnRow");
 
     const loveLetterBtn = document.getElementById("loveLetterBtn");
     const reasonsBtn = document.getElementById("reasonsBtn");
     const kissBtn = document.getElementById("kissBtn");
+    const content = document.getElementById("content");
 
-    const loveLetter = document.getElementById("loveLetter");
-    const reasons = document.getElementById("reasons");
-    const reasonsList = document.getElementById("reasonsList");
+    // --- NO button runaway ---
+    function moveNo() {
+      const rowRect = btnRow.getBoundingClientRect();
+      const btnRect = noBtn.getBoundingClientRect();
 
-    // 50 reasons (edit these however you want)
-    const reasonsData = [
-      "Your smile makes my day",
+      const maxX = rowRect.width - btnRect.width;
+      const maxY = rowRect.height - btnRect.height;
+
+      const x = Math.random() * maxX;
+      const y = Math.random() * maxY;
+
+      noBtn.style.left = x + "px";
+      noBtn.style.top = y + "px";
+      noBtn.style.right = "auto";
+    }
+
+    // show gun cat + bubble
+    function showNoMeme() {
+      mainImg.src = "IMG_3037.jpeg";
+      noBubble.classList.add("show");
+
+      setTimeout(() => noBubble.classList.remove("show"), 900);
+      setTimeout(() => { mainImg.src = "IMG_3035.jpeg"; }, 900);
+    }
+
+    // On desktop hover: run away
+    noBtn.addEventListener("mouseover", moveNo);
+
+    // On phone / touch: when she TRIES to press NO -> show meme then run
+    noBtn.addEventListener("touchstart", (e) => {
+      e.preventDefault();
+      showNoMeme();
+      moveNo();
+    }, { passive: false });
+
+    // On mouse press: show meme then run
+    noBtn.addEventListener("mousedown", (e) => {
+      e.preventDefault();
+      showNoMeme();
+      moveNo();
+    });
+
+    // --- YES -> second screen ---
+    yesBtn.addEventListener("click", () => {
+      screenAsk.style.display = "none";
+      screenYes.style.display = "block";
+      content.style.display = "none";
+      content.innerHTML = "";
+      window.scrollTo(0, 0);
+    });
+
+    // --- Love letter content ---
+    const loveLetterText = `
+      <h2>Love Letter</h2>
+      <p><b>My love,</b></p>
+      <p>
+        Im sitting here trying to put into words all these feelings I've got bubbling up. It's like I've been on this crazy love journey that started the moment I met you and there's no like end in sight as we say. I just want you to know that you’re one of the best things that ever happened to me.
+        The way you make me smile, the way you calm me down and the way you exist baby it genuinely all means more than you think.
+      </p>
+      <p>
+        Im proud of you, Im grateful for you and I choose you. Every single day.
+        And I can’t wait for the day I get to hold you for real and never let you go. So, as I'm writing this, just know that I love you more than I could ever put into words. I'm so excited to live this life with you and be together. You really are my everything.
+      </p>
+      <p><b>Yours, always.</b><br>Raoul ❤️</p>
+    `;
+
+    // --- 50 reasons (you can edit later) ---
+    const reasons = [
+      "Your smile makes my whole f day",
       "You understand me",
       "You make me laugh",
       "You care about me",
@@ -296,148 +323,87 @@ Happy Valentine’s, my sunshine 💖
       "You believe in me",
       "You make me feel safe",
       "You inspire me",
-      "You are kind",
-      "You are smart",
-      "You are my sunshine",
-      "You’re adorable",
-      "You’re my peace",
+      "You are the kindest",
+      "You are the smartest",
+      "You are my sunshiny girlfriend",
+      "You make everything feel better",
+      "You have the cutest voice",
       "You’re my favorite person",
-      "You make everything feel special",
-      "You motivate me to be better",
-      "You’re thoughtful",
-      "You’re gentle",
-      "You’re strong",
-      "You’re cute when you’re shy",
-      "You’re cute when you’re confident",
-      "You’re unique",
-      "You’re the best surprise in my life",
-      "You make me feel loved",
-      "You make me feel chosen",
-      "You make my heart calm",
-      "You make my heart race (in the best way)",
-      "You’re honest with me",
       "You’re patient with me",
-      "You’re worth everything",
-      "You’re my comfort",
-      "You’re my home",
-      "You’re my favorite notification",
-      "You’re my favorite voice",
-      "You’re my favorite eyes",
+      "You’re strong",
+      "You’re adorable",
+      "You’re thoughtful",
+      "You make me feel loved",
+      "You’re my peace",
+      "You’re my happiness",
+      "You’re my best friend",
+      "You’re special/precious to me",
+      "You’re one of a kind",
       "You make me proud",
+      "You make my heart warm",
+      "You’re my comfort",
+      "You’re the sweetest",
+      "You’re the prettiest",
+      "You’re caring",
+      "You listen to me",
+      "You trust me",
+      "You make me dream bigger",
+      "You’re my motivation",
+      "You’re eatably cute when you’re shy/mad",
+      "You’re cute when you’re confident",
+      "You make my life brighter",
+      "You’re my favorite notification",
+      "You’re the best part of my day",
+      "You make me feel lucky",
+      "You’re my home",
+      "You make me feel understood",
+      "You’re my person",
+      "You’re pure",
+      "You’re gentle",
       "You’re my future",
-      "You’re my dream",
-      "You make love feel real",
-      "You’re respectful",
-      "You’re loyal",
-      "You’re sweet",
-      "You’re precious",
-      "You’re my princess",
-      "You’re my pretty girl",
-      "You’re my beautiful",
-      "You’re my best decision",
-      "You’re my forever",
-      "Because it’s YOU."
+      "You’re worth everything",
+      "You’re my valentine",
+      "You’re YOU and that’s everything"
     ];
 
-    function fillReasons(){
-      reasonsList.innerHTML = "";
-      reasonsData.forEach((t) => {
-        const li = document.createElement("li");
-        li.textContent = t;
-        reasonsList.appendChild(li);
-      });
-    }
-    fillReasons();
-
-    // YES -> go to second screen
-    yesBtn.addEventListener("click", () => {
-      screenAsk.style.display = "none";
-      screenYes.style.display = "block";
-      // hide any open sections initially
-      loveLetter.classList.remove("show");
-      reasons.classList.remove("show");
-    });
-
-    // NO -> show gun-cat image briefly + bubble
-    noBtn.addEventListener("click", () => {
-      // quick switch to the "no" vibe
-      const img = screenAsk.querySelector(".img-wrap img");
-      img.src = "IMG_3037.jpeg";
-      noBubble.classList.add("show");
-      setTimeout(() => noBubble.classList.remove("show"), 900);
-      // after a moment, switch back to flowers cat
-      setTimeout(() => { img.src = "IMG_3035.jpeg"; }, 900);
-    });
-
-    // NO button runs away (works on hover + touch)
-    function moveNo(){
-      const rowRect = btnRow.getBoundingClientRect();
-      const btnRect = noBtn.getBoundingClientRect();
-
-      // allowed area inside row
-      const pad = 6;
-      const maxX = rowRect.width - btnRect.width - pad;
-      const maxY = rowRect.height - btnRect.height - pad;
-
-      const x = Math.random() * maxX + pad;
-      const y = Math.random() * maxY + pad;
-
-      noBtn.style.left = x + "px";
-      noBtn.style.top  = y + "px";
-      noBtn.style.right = "auto";
+    function reasonsHTML() {
+      return `
+        <h2>50 Reasons</h2>
+        <ol class="reasons">
+          ${reasons.map(r => `<li>${r}</li>`).join("")}
+        </ol>
+      `;
     }
 
-    noBtn.addEventListener("mouseover", moveNo);
-    noBtn.addEventListener("touchstart", (e) => {
-      e.preventDefault();
-      moveNo();
-    }, {passive:false});
-
-    // Toggle sections like the TikTok one
+    // Buttons
     loveLetterBtn.addEventListener("click", () => {
-      loveLetter.classList.toggle("show");
-      reasons.classList.remove("show");
-      // scroll into view nicely
-      if(loveLetter.classList.contains("show")){
-        loveLetter.scrollIntoView({behavior:"smooth", block:"start"});
-      }
+      content.style.display = "block";
+      content.innerHTML = loveLetterText;
+      content.scrollIntoView({ behavior: "smooth", block: "start" });
     });
 
     reasonsBtn.addEventListener("click", () => {
-      reasons.classList.toggle("show");
-      loveLetter.classList.remove("show");
-      if(reasons.classList.contains("show")){
-        reasons.scrollIntoView({behavior:"smooth", block:"start"});
-      }
+      content.style.display = "block";
+      content.innerHTML = reasonsHTML();
+      content.scrollIntoView({ behavior: "smooth", block: "start" });
     });
 
-    // Kiss animation 💋
-    function spawnKiss(){
-      const kiss = document.createElement("div");
-      kiss.className = "kiss";
-      kiss.textContent = "💋";
-
-      const card = document.getElementById("card");
-      const rect = card.getBoundingClientRect();
-
-      const x = Math.random() * (rect.width - 30);
-      const y = rect.height - 40;
-
-      kiss.style.left = x + "px";
-      kiss.style.top  = y + "px";
-
-      kissLayer.appendChild(kiss);
-      setTimeout(() => kiss.remove(), 1400);
+    // Kisses animation
+    function spawnKiss() {
+      const k = document.createElement("div");
+      k.className = "kiss";
+      k.textContent = "💋";
+      const x = (Math.random() * 260 - 130).toFixed(0) + "px";
+      k.style.setProperty("--x", x);
+      document.body.appendChild(k);
+      setTimeout(() => k.remove(), 1700);
     }
 
     kissBtn.addEventListener("click", () => {
       // burst of kisses
-      let count = 0;
-      const burst = setInterval(() => {
-        spawnKiss();
-        count++;
-        if(count >= 14) clearInterval(burst);
-      }, 60);
+      for (let i = 0; i < 10; i++) {
+        setTimeout(spawnKiss, i * 90);
+      }
     });
   </script>
 </body>
